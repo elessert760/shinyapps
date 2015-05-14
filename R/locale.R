@@ -1,62 +1,6 @@
-overrideWindowsLocale <- function(locale) {
-  map <- list()
-  map[['el_EL']] <- "el_GR"
-  if (locale %in% map) {
-    locale <- map[[locale]]
-  }
-  return(locale)
-}
-
 detectLocale <- function () {
-  sysName <- Sys.info()[['sysname']]
-  if (identical(sysName, "Windows")) {
-    locale <- detectLocale.Windows()
-  } else {
-    locale <- detectLocale.Unix()
-  }
+  locale <- unlist(strsplit(Sys.getlocale("LC_CTYPE"), ".", fixed=TRUE))[[1]]
   return(locale)
-}
-
-detectLocale.Unix <- function () {
-  unlist(strsplit(Sys.getlocale("LC_CTYPE"), ".", fixed=TRUE))[1]
-}
-
-detectLocale.Windows <- function (useCache = 
-                                  getOption('shinyapps.locale.cache', TRUE)) {
-  
-  # default locale
-  locale <- 'en_US'
-  
-  cacheFile <- localeCacheFile()
-  if (file.exists(cacheFile) && useCache) {
-    
-    # get chached
-    cache <- as.list(readDcf(cacheFile, all=TRUE))  
-    
-    locale <- unlist(cache$locale)
-    
-  } else {
-    
-    tryCatch({
-      
-      # get system locale
-      locale <- systemLocale()
-      
-      # write the user info
-      write.dcf(list(locale = locale),
-                cacheFile,
-                width = 100)
-      
-    }, error=function(e) {
-      warning(paste0("Error detecting locale: ", e, 
-                     " (Using default: ", locale, ")"), call.=FALSE)
-    })
-  }
-  return(overrideWindowsLocale(locale))
-}
-
-localeCacheFile <- function() {
-  normalizePath(file.path(shinyappsConfigDir(), "locale.dcf"), mustWork = FALSE)
 }
 
 systemLocale <- function() {
