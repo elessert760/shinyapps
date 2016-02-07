@@ -1,25 +1,20 @@
 Package: shinyapps
 Type: Package
-Title: Deployment Interface for Shiny Applications
-Version: 0.4.1.8
-Date: 2015-10-22
+Title: Interface to ShinyApps
+Version: 0.3.64
+Date: 2013-10-03
 Author: JJ Allaire
 Maintainer: JJ Allaire <jj@rstudio.com>
-Description: Deployment Interface for Shiny Applications
+Description: Interface for deploying shiny applications to the ShinyApps
+    service
 Depends:
     R (>= 3.0.0)
 Imports:
     digest,
-    PKI,
     RCurl,
-    RJSONIO,
-    packrat (>= 0.4.5),
-    yaml (>= 2.1.5),
-    rstudioapi (>= 0.2)
+    RJSONIO
 Suggests:
     scrypt,
     knitr,
-    testthat,
-    rmarkdown (>= 0.5.2)
-Enhances: BiocInstaller
+    testthat
 License: GPL-2

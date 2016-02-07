@@ -45,9 +45,9 @@ httpDiagnosticsEnabled <- function() {
 }
 
 readPassword <- function(prompt) {
-  if (exists(".rs.askForPassword", mode = "function")) {
-    askForPassword <- get(".rs.askForPassword", mode = "function")
-    askForPassword(prompt)
+  # user super secret function if using RStudio
+  if (exists(".rs.askForPassword")) {
+    password <- .rs.askForPassword(prompt)
   } else {
 
     os <- Sys.info()[['sysname']]
@@ -67,7 +67,7 @@ readPassword <- function(prompt) {
         # TODO: enable echo on Windows
       }
     }
-
+  
     echoOff()
     password <- readline(prompt)
     echoOn()
@@ -84,7 +84,7 @@ readDcf <- function(...) {
 
 
 #' Generate a line with embedded message
-#'
+#' 
 #' Generates a message, surrounded with \code{#}, that extends
 #' up to length \code{n}.
 #' @param message A string (single-line message).
@@ -132,39 +132,3 @@ rstudioEncoding <- function(dir) {
   enc <- drop(readDcf(proj, 'Encoding'))
   enc[!is.na(enc)]
 }
-
-# return the leaf from a path (e.g. /foo/abc/def -> def)
-fileLeaf <- function(path) {
-  components <- strsplit(path, "/")
-  unlist(lapply(components, function(component) {
-    component[length(component)]
-  }))
-}
-
-# whether the given path points to an individual piece of content
-isDocumentPath <- function(path) {
-  ext <- tolower(tools::file_ext(path))
-  !is.null(ext) && ext != ""
-}
-
-# given a path, return the directory under which rsconnect package state is
-# stored
-rsconnectRootPath <- function(appPath) {
-  if (isDocumentPath(appPath))
-    file.path(dirname(appPath), "rsconnect", "documents", basename(appPath))
-  else
-    file.path(appPath, "rsconnect")
-}
-
-dirExists <- function(x) {
-  utils::file_test('-d', x)
-}
-
-capitalize <- function(x) {
-  if (nchar(x) == 0)
-    x
-  else
-    paste0(toupper(substr(x, 1, 1)), substring(x, 2))
-}
-
-

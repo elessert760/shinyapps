@@ -10,16 +10,15 @@ The \pkg{shinyapps} package supports several options that control the method use
 \details{
 Supported global options include:
 \describe{
-   \item{\code{shinyapps.http}}{Http implementation used for connections to the back-end service:
+   \item{\code{shinyapps.http}}{Http implementation used for connections to the back-end service: 
    \tabular{ll}{
      \code{rcurl} \tab Secure https using the \code{RCurl} package\cr
-     \code{curl} \tab Secure https using the curl system utility \cr
+     \code{curl} \tab Secure https using the curl system utility \cr 
      \code{internal} \tab Insecure http using raw sockets\cr
    }
    If no option is specified then \code{rcurl} is used by default.
    }
    \item{\code{shinyapps.http.trace}}{When \code{TRUE}, trace http calls (prints the method, path, and total milliseconds for each http request)}
-   \item{\code{shinyapps.http.trace.json}}{When \code{TRUE}, trace JSON content (shows JSON payloads sent to and received from the server))}
    \item{\code{shinyapps.http.verbose}}{When \code{TRUE}, print verbose output for http connections (useful only for debugging SSL certificate or http connection problems)}
    \item{\code{shinyapps.launch.browser}}{When \code{TRUE}, automatically launch a browser to view applications after they are deployed}
    \item{\code{shinyapps.locale.cache}}{When \code{FALSE}, disable the detected locale cache (Windows only). }
@@ -38,9 +37,6 @@ options(shinyapps.http.trace = TRUE)
 
 # print verbose output for http requests
 options(shinyapps.http.verbose = TRUE)
-
-# print JSON content
-options(shinyapps.http.trace.json = TRUE)
 
 # don't automatically launch a browser after deployment
 options(shinyapps.launch.browser = FALSE)
